@@ -10,7 +10,7 @@ function createToken(nome){
     return new Promise((resolve, reject) => {
         try {
             let header = JSONbase64.encode({typ: "JWT", "alg": "HS256"})
-            let payload = JSONbase64.encode({nome: nome})
+            let payload = JSONbase64.encode({nome: nome, createdAt: Date.now()})
             let hash = crypto.createHmac("sha256", secret_key).update(`${header}.${payload}`).digest("base64url")
             let result_token = `${header}.${payload}.${hash}`
 
